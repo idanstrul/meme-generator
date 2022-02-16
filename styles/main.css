@@ -1,3 +1,14 @@
+/* SETAP */
+@import url('setap/vars.css');
+
 /* BASIC */
 
 @import url('basic/base.css');
+@import url('basic/layout.css');
+@import url('basic/helpers.css');
+
+/* COMPONENTS */
+
+@import url('components/main-header.css');
+@import url('components/main-footer.css');
+@import url('components/editor.css');

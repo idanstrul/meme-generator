@@ -10,10 +10,10 @@
 </head>
 
 <body onload="onInit()">
-    <header>
+    <header class="main-header main-layout main-clr flex-main">
         <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
         <nav>
-            <ul>
+            <ul class="clean-list flex-main">
                 <li><button class="gallery-tab">Gallery</button></li>
                 <li><button class="memes-tab">Memes</button></li>
                 <li><button class="about-tab">About</button></li>
@@ -21,19 +21,25 @@
         </nav>
     </header>
 
-    <main class="gallery">
-        <section class="gallery-search">
+    <main class="gallery hide">
+        <section class="gallery-header main-layout flex-main">
+            <input type="search" placeholder="Enter search keyword">
+            <div class="tag-cloud">
+                funny politics crazy
+            </div>
+        </section>
+        <section class="gallery-main grid-container main-layout secondary-clr">
 
         </section>
-        <section class="images-container grid-container">
+        <section class="monica-geller hide main-layout">
 
         </section>
 
     </main>
 
-    <main class="editor">
-        <div class="canvas-container">
-            <canvas height="600" width="600">
+    <main class="editor main-layout flex-main secondary-clr">
+        <div class="canvas-container blank-clr">
+            <canvas height="270" width="270">
 
             </canvas>
         </div>
@@ -47,8 +53,9 @@
 
     </main>
 
-    <footer>
-
+    <footer class="main-footer main-layout main-clr flex-center-column">
+        <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
+        <small>All rights reserved 2022</small>
     </footer>
 
     <script src="js/services/meme-service.js"></script>

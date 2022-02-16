@@ -13,7 +13,7 @@ function onInit() {
 function onResizeCanvas() {
     console.log('Resizing!');
     var elContainer = document.querySelector('.canvas-container');
-    gElCanvas.width = elContainer.offsetWidth - 20;
+    gElCanvas.width = elContainer.offsetWidth;
 }
 
 function renderMeme() {

@@ -1,0 +1,23 @@
+.flex-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-center-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.clean-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hide{
+    display: none;
+}

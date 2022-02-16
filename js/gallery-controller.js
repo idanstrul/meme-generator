@@ -1,13 +1,13 @@
 'use strict'
 
 function renderGallery(){
-    const elImagesContainer = document.querySelector('.images-container');
+    const elGalleryMain = document.querySelector('.gallery-main');
     const imgs = getImgs();
-    let strHTML;
+    let strHTML = '';
     imgs.forEach(img =>
         strHTML += `<img src="${img.url}" onclick="onImgSelect(${img.id})">`
     )
-    elImagesContainer.innerHTML = strHTML;
+    elGalleryMain.innerHTML = strHTML;
 }
 
 function onSetTextColor(elColorInput){
