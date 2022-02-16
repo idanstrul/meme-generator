@@ -10,6 +10,11 @@ function renderGallery(){
     elImagesContainer.innerHTML = strHTML;
 }
 
+function onSetTextColor(elColorInput){
+    setTextColor(elColorInput.value);
+    renderMeme();
+}
+
 function onImgSelect(imgId){
     setImg(imgId)
     renderMeme()

@@ -26,7 +26,7 @@
 
         </section>
         <section class="images-container grid-container">
-            
+
         </section>
 
     </main>
@@ -38,7 +38,11 @@
             </canvas>
         </div>
         <div class="editor-controls">
-            <input type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
+            <input class="meme-text" type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
+            <input class="text-color" type="color" name="text-color" oninput="onSetTextColor(this)">
+            <button class="increase-font" onclick="onSetFontSize(1)">A+</button>
+            <button class="decrease-font" onclick="onSetFontSize(-1)">A-</button>
+            <button class="swich-line" onclick="onSwitchLine()">⇅</button>
         </div>
 
     </main>
