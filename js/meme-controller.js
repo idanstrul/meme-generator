@@ -4,6 +4,7 @@ var gElCanvas;
 var gCtx;
 
 function onInit(){
+    renderGallery()
     gElCanvas = document.querySelector('canvas');
     gCtx = gElCanvas.getContext('2d');
     window.addEventListener('resize', onResizeCanvas)
@@ -40,4 +41,11 @@ function drawText(textStr, size, color){
     gCtx.fillStyle = color;
     gCtx.font = `${size}px Arial`;
     gCtx.strokeText(textStr, 50, 50)
+}
+
+
+function onUpdateText(elTextInput){
+    var newText = elTextInput.value;
+    setLineText(newText)
+    renderMeme()
 }
