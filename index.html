@@ -9,7 +9,7 @@
     <title>Meme Generator!</title>
 </head>
 
-<body>
+<body onload="onInit()">
     <header>
         <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
         <nav>
@@ -30,9 +30,11 @@
 
     </main>
 
-    <main class="editor" hidden>
+    <main class="editor">
         <div class="canvas-container">
+            <canvas height="600" width="600">
 
+            </canvas>
         </div>
         <div class="editor-controls">
 
@@ -44,8 +46,10 @@
 
     </footer>
 
+    <script src="js/services/meme-service.js"></script>
     <script src="js/services/gallery-service.js"></script>
     <script src="js/services/editor-service.js"></script>
+    <script src="js/meme-controller.js"></script>
     <script src="js/gallery-controller.js"></script>
     <script src="js/editor-controller.js"></script>
 </body>

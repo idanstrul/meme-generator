@@ -10,3 +10,14 @@ img{
 img.logo{
     max-width: 150px;
 }
+
+.canvas-container{
+    background-color: antiquewhite;
+    width: 90vw;
+    margin: auto;
+}
+
+canvas {
+    margin: auto;
+    display: block;
+}
