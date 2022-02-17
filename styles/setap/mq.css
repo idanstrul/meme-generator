@@ -1,0 +1,35 @@
+@media (min-width: 340px) {
+    .main-layout{
+        padding: 13px 25px;
+    }
+
+}
+
+@media (min-width: 390px) {
+    .main-nav{
+        display: block;
+    }
+    
+    .burger-menu-btn{
+        display: none;
+    }
+}
+
+@media (min-width: 511px) {
+    .canvas-container{
+        width: 270px;
+    }
+
+    .editor-controls {
+        gap: 10px 5px;
+        width: auto;
+        align-self: stretch;
+    }
+
+}
+
+@media (min-width: 600px) {
+    .editor-controls{
+        padding: 0 8.3%;
+    }
+}

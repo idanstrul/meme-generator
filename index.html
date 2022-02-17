@@ -12,13 +12,14 @@
 <body onload="onInit()">
     <header class="main-header main-layout main-clr flex-main">
         <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
-        <nav>
+        <nav class="main-nav">
             <ul class="clean-list flex-main">
                 <li><button class="gallery-tab">Gallery</button></li>
                 <li><button class="memes-tab">Memes</button></li>
                 <li><button class="about-tab">About</button></li>
             </ul>
         </nav>
+        <button class="burger-menu-btn">≡</button>
     </header>
 
     <main class="gallery hide">
@@ -37,7 +38,7 @@
 
     </main>
 
-    <main class="editor main-layout flex-main secondary-clr">
+    <main class="editor main-layout flex-center-column secondary-clr">
         <div class="canvas-container blank-clr">
             <canvas height="270" width="270">
 
@@ -45,10 +46,26 @@
         </div>
         <div class="editor-controls">
             <input class="meme-text" type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
-            <input class="text-color" type="color" name="text-color" oninput="onSetTextColor(this)">
+
+            <button class="switch-line" onclick="onSwitchLine()">⇅</button>
+            <button class="add-line" onclick="onAddLine()">+</button>
+            <button class="remove-line" onclick="onRemoveLine()">🗑</button>
+
             <button class="increase-font" onclick="onSetFontSize(1)">A+</button>
             <button class="decrease-font" onclick="onSetFontSize(-1)">A-</button>
-            <button class="swich-line" onclick="onSwitchLine()">⇅</button>
+            <button class="text-align-left-btn" onclick="onTextAlign('left')">&lt;</button>
+            <button class="text-align-center-btn" onclick="onTextAlign('center')">≡</button>
+            <button class="text-align-right-btn" onclick="onTextAlign('right')">&gt;</button>
+            
+            <select class="font-face">
+    
+            </select>
+            <input class="stroke-color" type="color" name="stroke-color" oninput="onSetStrokeColor(this)">
+            <input class="fill-color" type="color" name="fill-color" oninput="onSetFillColor(this)">
+
+            <div class="sticker-container"></div>
+
+            <button class="share-btn">Share</button>
         </div>
 
     </main>

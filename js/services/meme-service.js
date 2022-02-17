@@ -20,13 +20,15 @@ var gMeme = {
             txt: 'I sometimes eat Falafel',
             size: 20,
             align: 'left',
-            color: '#ff0000'
+            fillColor: '#ff0000',
+            strokeColor: '#ff0000'
         },
         {
             txt: 'Jack Ass!',
             size: 30,
             align: 'left',
-            color: '#00ff00'
+            fillColor: '#00ff00',
+            strokeColor: '#00ff00'
         }
     ]
 }
@@ -51,8 +53,12 @@ function setImg(newImgId){
     gMeme.selectedImgId = newImgId;
 }
 
-function setTextColor(newColor){
-    gMeme.lines[gMeme.selectedLineIdx].color = newColor;
+function setStrokeColor(newColor){
+    gMeme.lines[gMeme.selectedLineIdx].strokeColor = newColor;
+}
+
+function setFillColor(newColor){
+    gMeme.lines[gMeme.selectedLineIdx].fillColor = newColor;
 }
 
 function setFontSize(diff){

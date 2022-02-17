@@ -1,0 +1,93 @@
+.editor-controls {
+    display: grid;
+    grid-template: repeat(4, 1fr) 2fr 1fr / repeat(5, 1fr);
+    grid-template-areas: 
+    
+    "meme-text      meme-text       meme-text   meme-text       meme-text"
+    ".              switch-line      add-line    remove-line     ."
+    "increase-font  decrease-font   align-left  align-center    align-right"
+    "font-face      font-face       font-face   stroke-color    fill-color"
+    "stickers       stickers        stickers    stickers        stickers"
+    ".              .               .           share-btn       share-btn";
+}
+
+.meme-text{
+    grid-area: meme-text;
+}
+
+.switch-line{
+    grid-area: switch-line;
+}
+
+.add-line{
+    grid-area: add-line;
+}
+
+.remove-line{
+    grid-area: remove-line;
+}
+
+.increase-font{
+    grid-area: increase-font;
+}
+
+.decrease-font{
+    grid-area: decrease-font;
+}
+
+.text-align-left-btn{
+    grid-area: align-left;
+}
+
+.text-align-center-btn{
+    grid-area: align-center;
+}
+
+.text-align-right-btn{
+    grid-area: align-right;
+}
+
+.font-face{
+    grid-area: font-face;
+}
+
+.stroke-color{
+    grid-area: stroke-color;
+}
+
+.fill-color{
+    grid-area: fill-color;
+}
+
+.sticker-container{
+    grid-area: stickers;
+    background-color: white;
+}
+
+.share-btn{
+    grid-area: share-btn;
+}
+
+
+
+.editor-controls {
+    gap: 10px 5px;
+    width: 100%;
+    max-width: 300px;
+    /* grid-template: repeat(4, 1.875em) 2.75em 1.875em / repeat(5, 1.875em);
+}
+
+.editor-controls button {
+    width: 30px;
+    height: 30px;
+    font-size: inherit; */
+}
+
+
+input.stroke-color {
+    width: 30px;
+}
+
+input.fill-color {
+    width: 30px;
+}
