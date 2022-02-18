@@ -1,11 +1,11 @@
 .main-layout{
-    max-width: 600px;
+    max-width: 520px;
     padding: 5px;
     margin: auto;
 }
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px , 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(81px , 1fr));
+    gap: 2px;
 }

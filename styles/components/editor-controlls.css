@@ -71,9 +71,10 @@
 
 
 .editor-controls {
-    gap: 10px 5px;
-    width: 100%;
-    max-width: 300px;
+    gap: 6px 13px;
+    width: calc(100vw - 10px);
+    height: calc(7 / 5 *(100vw - 10px) / 1.2);
+    /* width: 100%; */
     /* grid-template: repeat(4, 1.875em) 2.75em 1.875em / repeat(5, 1.875em);
 }
 
