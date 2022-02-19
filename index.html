@@ -14,7 +14,7 @@
         <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
         <nav class="main-nav">
             <ul class="clean-list flex-main">
-                <li><button class="gallery-tab">Gallery</button></li>
+                <li><button class="gallery-tab" onclick="onOpenGallery()">Gallery</button></li>
                 <li><button class="memes-tab">Memes</button></li>
                 <li><button class="about-tab">About</button></li>
             </ul>
@@ -23,50 +23,6 @@
     </header>
 
     <main class="gallery">
-        <section class="gallery-header main-layout flex-main">
-            <input type="search" placeholder="Enter search keyword">
-            <div class="tag-cloud">
-                funny politics crazy
-            </div>
-        </section>
-        <section class="gallery-main grid-container main-layout secondary-clr">
-
-        </section>
-        <section class="monica-geller hide main-layout">
-
-        </section>
-
-    </main>
-
-    <main class="editor main-layout flex-center-column secondary-clr hide">
-        <div class="canvas-container blank-clr">
-            <canvas height="270" width="270">
-
-            </canvas>
-        </div>
-        <div class="editor-controls">
-            <input class="meme-text" type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
-
-            <button class="switch-line" onclick="onSwitchLine()">⇅</button>
-            <button class="add-line" onclick="onAddLine()">+</button>
-            <button class="remove-line" onclick="onRemoveLine()">🗑</button>
-
-            <button class="increase-font" onclick="onSetFontSize(1)">A+</button>
-            <button class="decrease-font" onclick="onSetFontSize(-1)">A-</button>
-            <button class="text-align-left-btn" onclick="onTextAlign('left')">&lt;</button>
-            <button class="text-align-center-btn" onclick="onTextAlign('center')">≡</button>
-            <button class="text-align-right-btn" onclick="onTextAlign('right')">&gt;</button>
-            
-            <select class="font-face">
-    
-            </select>
-            <input class="stroke-color" type="color" name="stroke-color" oninput="onSetStrokeColor(this)">
-            <input class="fill-color" type="color" name="fill-color" oninput="onSetFillColor(this)">
-
-            <div class="sticker-container"></div>
-
-            <button class="share-btn">Share</button>
-        </div>
 
     </main>
 
@@ -75,6 +31,7 @@
         <small>All rights reserved 2022</small>
     </footer>
 
+    <script src="js/services/utils-service.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/gallery-service.js"></script>
     <script src="js/services/editor-service.js"></script>

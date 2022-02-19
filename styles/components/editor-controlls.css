@@ -35,15 +35,15 @@
     grid-area: decrease-font;
 }
 
-.text-align-left-btn{
+.text-align-btn.left-align{
     grid-area: align-left;
 }
 
-.text-align-center-btn{
+.text-align-btn.center-align{
     grid-area: align-center;
 }
 
-.text-align-right-btn{
+.text-align-btn.right-align{
     grid-area: align-right;
 }
 
