@@ -43,8 +43,8 @@ function renderEditor() {
     gCtx = gElCanvas.getContext('2d');
     window.addEventListener('resize', onResizeWindow)
     onResizeWindow();
-    gCtx.textBaseline = 'middle';
     renderMeme()
+    addListeners()
     // }
 }
 
@@ -103,6 +103,7 @@ function syncCtxBtnsAndModel(selectedLine, isSyncBtnsOn) {
     gCtx.fillStyle = selectedLine.fillColor;
     gCtx.font = `${selectedLine.size}px Arial`;
     gCtx.lineWidth = selectedLine.size / 10;
+    gCtx.textBaseline = 'middle';
     // if (alignment) {
     gCtx.textAlign = selectedLine.align;
     // }
@@ -190,3 +191,101 @@ function onTextAlign(alignment) {
     renderMeme();
 }
 
+
+// Drag And Drop
+var gStartPos
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+
+function whichLineClicked(clickedPos) {
+    gCtx.save()
+    const selectedLineIdx = getMeme().lines.findIndex(line => {
+        syncCtxBtnsAndModel(line, false)
+        const lineMetrics = gCtx.measureText(line.txt);
+        const pos = line.pos;
+        return (clickedPos.x > pos.x - lineMetrics.actualBoundingBoxLeft && clickedPos.x < pos.x + lineMetrics.actualBoundingBoxRight &&
+            clickedPos.y > pos.y - lineMetrics.actualBoundingBoxDescent && clickedPos.y < pos.y + lineMetrics.actualBoundingBoxAscent)
+    })
+    gCtx.restore()
+    return selectedLineIdx;
+}
+
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+    window.addEventListener('resize', () => {
+        onResizeWindow()
+        renderMeme()
+    })
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    const selectedLineIdx = whichLineClicked(pos);
+    console.log('onDown()');
+    if (selectedLineIdx === -1) return
+    switchLine(selectedLineIdx);
+    console.log('Line Clicked!');
+    setLineDrag(true)
+    gStartPos = pos
+    document.body.style.cursor = 'move';
+    renderMeme();
+
+}
+
+function onMove(ev) {
+    console.log('onMove()');
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx];
+    if (selectedLine && selectedLine.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveLine(dx, dy)
+        gStartPos = pos
+        renderMeme()
+    }
+}
+
+function onUp() {
+    console.log('onUp()');
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx];
+    if (!selectedLine) return;
+    setLineDrag(false)
+    document.body.style.cursor = 'default'
+}
+
+// function resizeCanvas() {
+//     const elContainer = document.querySelector('.canvas-container')
+//     gElCanvas.width = elContainer.offsetWidth
+//     gElCanvas.height = elContainer.offsetHeight
+// }
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
+}

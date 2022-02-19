@@ -25,7 +25,8 @@ var gMeme = {
             pos: {
                 x: 135,
                 y: 30
-            }
+            },
+            isDrag: false
         },
         {
             txt: 'Jack Ass!',
@@ -36,7 +37,8 @@ var gMeme = {
             pos: {
                 x: 135,
                 y: 240
-            }
+            },
+            isDrag: false
         }
     ]
 }
@@ -88,8 +90,8 @@ function setFontSize(diff) {
     gMeme.lines[gMeme.selectedLineIdx].size += diff;
 }
 
-function switchLine() {
-    gMeme.selectedLineIdx += 1;
+function switchLine(toLineIdx = gMeme.selectedLineIdx + 1) {
+    gMeme.selectedLineIdx = toLineIdx;
     gMeme.selectedLineIdx %= gMeme.lines.length;
 }
 
@@ -120,7 +122,8 @@ function createNewLine() {
             align: 'center',
             fillColor: '#ffffff',
             strokeColor: '#000000',
-            pos
+            pos,
+            isDrag: false
         }
     )
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
@@ -148,4 +151,19 @@ function setTextAlignment(alignment) {
 
     line.align = alignment;
     line.pos.x = xPos;
+}
+
+
+// Drag And Drop
+
+
+function setLineDrag(isDrag) {
+    gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
+}
+
+function moveLine(dx, dy) {
+    const selectedLine = gMeme.lines[gMeme.selectedLineIdx]
+    selectedLine.pos.x += dx
+    selectedLine.pos.y += dy
+
 }
