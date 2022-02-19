@@ -117,10 +117,6 @@ function drawSelectionRectangle(line){
     const lineMetrics = gCtx.measureText(line.txt);
     const rectW = lineMetrics.width;
     const rectH = Math.abs(lineMetrics.actualBoundingBoxAscent) + Math.abs(lineMetrics.actualBoundingBoxDescent)
-    // const rectPosEnd = {
-    //     x: line.pos.x + Math.abs(lineMetrics.actualBoundingBoxRight),
-    //     y: line.pos.y + Math.abs(lineMetrics.actualBoundingBoxDescent)
-    // }
     const rectPos = {
         x: line.pos.x - lineMetrics.actualBoundingBoxLeft,
         y: line.pos.y - lineMetrics.actualBoundingBoxAscent
