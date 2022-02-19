@@ -43,6 +43,7 @@ function renderEditor() {
     gCtx = gElCanvas.getContext('2d');
     window.addEventListener('resize', onResizeWindow)
     onResizeWindow();
+    gCtx.textBaseline = 'middle';
     renderMeme()
     // }
 }
@@ -62,7 +63,7 @@ function onResizeWindow() {
     }
 }
 
-function getCanvasSize(){
+function getCanvasSize() {
     return {
         w: gElCanvas.width,
         h: gElCanvas.height
@@ -77,18 +78,35 @@ function renderMeme() {
     img.src = memeImg.url;
     img.onload = () => {
         drawImg(img);
-        meme.lines.forEach(line =>
-            drawText(line.txt, line.size, line.align, line.strokeColor, line.fillColor, line.pos)
-        )
-        if (selectedLine) drawSelectionRectangle(selectedLine);
+        meme.lines.forEach(line => {
+            syncCtxBtnsAndModel(line, false);
+            drawText(line);
+        })
+        if (selectedLine) {
+            syncCtxBtnsAndModel(selectedLine, true);
+            drawSelectionRectangle(selectedLine);
+        }
     }
-    document.querySelector('.meme-text').value = (selectedLine)? selectedLine.txt: 'Please add line to edit';
-    document.querySelector('.stroke-color').value = (selectedLine)? selectedLine.strokeColor: '#000000';
-    document.querySelector('.fill-color').value = (selectedLine)? selectedLine.fillColor: '#ffffff';
-    document.querySelectorAll(`.text-align-btn`).forEach(btn => {
-        if (selectedLine && btn.classList.contains(`${selectedLine.align}-align`)) btn.disabled = true;
-        else btn.disabled = false;
-    })
+}
+
+function syncCtxBtnsAndModel(selectedLine, isSyncBtnsOn) {
+    if (isSyncBtnsOn) {
+        document.querySelector('.meme-text').value = (selectedLine) ? selectedLine.txt : 'Please add line to edit';
+        document.querySelector('.stroke-color').value = (selectedLine) ? selectedLine.strokeColor : '#000000';
+        document.querySelector('.fill-color').value = (selectedLine) ? selectedLine.fillColor : '#ffffff';
+        document.querySelectorAll(`.text-align-btn`).forEach(btn => {
+            if (selectedLine && btn.classList.contains(`${selectedLine.align}-align`)) btn.disabled = true;
+            else btn.disabled = false;
+        })
+    }
+    gCtx.strokeStyle = selectedLine.strokeColor;
+    gCtx.fillStyle = selectedLine.fillColor;
+    gCtx.font = `${selectedLine.size}px Arial`;
+    gCtx.lineWidth = selectedLine.size / 10;
+    // if (alignment) {
+    gCtx.textAlign = selectedLine.align;
+    // }
+
 }
 
 function drawImg(img/* Url */) {
@@ -99,21 +117,12 @@ function drawImg(img/* Url */) {
     // };
 }
 
-function drawText(textStr, size, alignment, strokeColor, fillColor, pos) {
-    gCtx.strokeStyle = strokeColor;
-    gCtx.fillStyle = fillColor;
-    gCtx.font = `${size}px Arial`;
-    if (alignment){
-        gCtx.textAlign = alignment;
-    }
-    gCtx.textBaseline = 'middle';
-    gCtx.strokeText(textStr, pos.x, pos.y)
-    gCtx.fillText(textStr, pos.x, pos.y)
+function drawText(line) {
+    gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
+    gCtx.fillText(line.txt, line.pos.x, line.pos.y)
 }
 
-function drawSelectionRectangle(line){
-    gCtx.font = `${line.size}px Arial`;
-    gCtx.textAlign = line.align
+function drawSelectionRectangle(line) {
     const lineMetrics = gCtx.measureText(line.txt);
     const rectW = lineMetrics.width;
     const rectH = Math.abs(lineMetrics.actualBoundingBoxAscent) + Math.abs(lineMetrics.actualBoundingBoxDescent)
@@ -123,7 +132,11 @@ function drawSelectionRectangle(line){
     }
     gCtx.save()
     gCtx.strokeStyle = 'black';
-    gCtx.setLineDash([10, 10])
+    gCtx.lineWidth = 2;
+    gCtx.setLineDash([
+        rectW * 3 / 20, rectW * 4.5 / 20, rectW * 5 / 20, rectW * 4.5 / 20, rectW * 3 / 20, 0,
+        rectH * 3 / 20, rectH * 4.5 / 20, rectH * 5 / 20, rectH * 4.5 / 20, rectH * 3 / 20, 0
+    ])
     gCtx.strokeRect(rectPos.x, rectPos.y, rectW, rectH);
     gCtx.restore();
 }
@@ -156,23 +169,22 @@ function onSetStrokeColor(elColorInput) {
 
 function onSetFillColor(elColorInput) {
     if (!getMeme().lines.length) return;
-    console.log('fill');
     setFillColor(elColorInput.value);
     renderMeme();
 }
 
-function onAddLine(){
+function onAddLine() {
     createNewLine()
     renderMeme()
 }
 
-function onRemoveLine(){
+function onRemoveLine() {
     if (!getMeme().lines.length) return;
     removeLine();
     renderMeme();
 }
 
-function onTextAlign(alignment){
+function onTextAlign(alignment) {
     if (!getMeme().lines.length) return;
     setTextAlignment(alignment);
     renderMeme();
