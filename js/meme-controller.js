@@ -33,6 +33,7 @@ function renderEditor() {
         <div class="sticker-container"></div>
 
         <button class="share-btn">Share</button>
+        <a href="#" class="download-btn btn" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download</a>
     </div>
     `
     elMain.classList.remove('gallery')
@@ -70,7 +71,7 @@ function getCanvasSize() {
     }
 }
 
-function renderMeme() {
+function renderMeme(isForDownload = false) {
     const meme = getMeme();
     const memeImg = getImgById(meme.selectedImgId);
     const selectedLine = meme.lines[meme.selectedLineIdx];
@@ -82,7 +83,7 @@ function renderMeme() {
             syncCtxBtnsAndModel(line, false);
             drawText(line);
         })
-        if (selectedLine) {
+        if (!isForDownload && selectedLine) {
             syncCtxBtnsAndModel(selectedLine, true);
             drawSelectionRectangle(selectedLine);
         }
@@ -289,3 +290,67 @@ function getEvPos(ev) {
     }
     return pos
 }
+
+
+
+// Image Upload and Download
+
+function onDownloadMeme(elLink) {
+    var imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
+
+function onImgInput(ev) {
+    var reader = new FileReader()
+
+    reader.onload = function (event) {
+        console.log('onload');
+        const imgUrl = event.target.result
+        setImgFromUpload(imgUrl)
+        setEditorOpen()
+        renderEditor()
+    }
+    console.log('after');
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+
+
+// FACEBOOK SHARE FUNCTIONALITY:
+
+// function uploadImg() {
+//     const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+
+//     // A function to be called if request succeeds
+//     function onSuccess(uploadedImgUrl) {
+//         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+//         console.log(encodedUploadedImgUrl);
+//         document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
+
+//         document.querySelector('.share-container').innerHTML = `
+//         <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+//            Share   
+//         </a>`
+//     }
+
+//     doUploadImg(imgDataUrl, onSuccess);
+// }
+
+// function doUploadImg(imgDataUrl, onSuccess) {
+
+//     const formData = new FormData();
+//     formData.append('img', imgDataUrl)
+
+//     fetch('//ca-upload.com/here/upload.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//         .then(res => res.text())
+//         .then((url) => {
+//             console.log('Got back live url:', url);
+//             onSuccess(url)
+//         })
+//         .catch((err) => {
+//             console.error(err)
+//         })
+// }

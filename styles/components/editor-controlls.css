@@ -8,7 +8,7 @@
     "increase-font  decrease-font   align-left  align-center    align-right"
     "font-face      font-face       font-face   stroke-color    fill-color"
     "stickers       stickers        stickers    stickers        stickers"
-    ".              .               .           share-btn       share-btn";
+    "download-btn   download-btn    .           share-btn       share-btn";
 }
 
 .meme-text{
@@ -66,6 +66,10 @@
 
 .share-btn{
     grid-area: share-btn;
+}
+
+.download-btn{
+    grid-area: download-btn;
 }
 
 

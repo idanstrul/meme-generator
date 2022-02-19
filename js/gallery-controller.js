@@ -15,7 +15,11 @@ function renderGallery() {
 
     let strMainHTML = `
     <section class="gallery-header main-layout flex-main">
-        <input type="search" placeholder="Enter search keyword">
+        <div class="inputs">
+            <input type="search" placeholder="Enter search keyword">
+            <h3> Or upload your own image:<h3>
+            <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+        </div>
         <div class="tag-cloud">
             funny politics crazy
         </div>

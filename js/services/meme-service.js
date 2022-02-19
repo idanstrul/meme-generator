@@ -167,3 +167,19 @@ function moveLine(dx, dy) {
     selectedLine.pos.y += dy
 
 }
+
+
+// Image Upload
+
+function setImgFromUpload(imgUrl){
+    var newImg = { 
+        id: gImgs.length + 1, 
+        url: imgUrl,
+        keywords: ['funny', 'cat'] 
+    }
+    gImgs.push(newImg);
+    gMeme.selectedImgId = newImg.id;
+}
+
+
+
