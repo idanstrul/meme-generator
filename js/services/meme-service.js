@@ -19,6 +19,7 @@ var gMeme = {
         {
             txt: 'I sometimes eat Falafel',
             size: 20,
+            fontFace: 'Impact',
             align: 'center',
             fillColor: '#ff0000',
             strokeColor: '#ff0000',
@@ -31,6 +32,7 @@ var gMeme = {
         {
             txt: 'Jack Ass!',
             size: 30,
+            fontFace: 'Impact',
             align: 'center',
             fillColor: '#00ff00',
             strokeColor: '#00ff00',
@@ -62,6 +64,10 @@ function getMeme() {
     return gMeme;
 }
 
+function getSelectedLine(){
+    return gMeme.lines[gMeme.selectedLineIdx];
+}
+
 function getImgById(imgId) {
     return gImgs.find(img => img.id === imgId)
 }
@@ -90,13 +96,17 @@ function setFontSize(diff) {
     gMeme.lines[gMeme.selectedLineIdx].size += diff;
 }
 
+function setFontFace(fontFace){
+    getSelectedLine().fontFace = fontFace;
+}
+
 function switchLine(toLineIdx = gMeme.selectedLineIdx + 1) {
     gMeme.selectedLineIdx = toLineIdx;
     gMeme.selectedLineIdx %= gMeme.lines.length;
 }
 
 
-function createNewLine() {
+function createNewLine(lineTxt = 'Type your meme!') {
     const canvasSize = getCanvasSize()
     var pos;
     if (!gMeme.lines.some(line => line.pos.y < 50)) {
@@ -117,8 +127,9 @@ function createNewLine() {
     }
     gMeme.lines.push(
         {
-            txt: 'Type your meme!',
+            txt: lineTxt,
             size: 20,
+            fontFace: 'Impact',
             align: 'center',
             fillColor: '#ffffff',
             strokeColor: '#000000',
@@ -181,5 +192,13 @@ function setImgFromUpload(imgUrl){
     gMeme.selectedImgId = newImg.id;
 }
 
+
+// Stickers:
+
+const STICKERS = ['❤','💥','🚀','🏴‍☠️','🚽','🍕','🍌','🌹','🍆','🎈','💡','💰','🎩','👒','💋','🕶'];
+
+function getStickers(){
+    return STICKERS;
+}
 
 

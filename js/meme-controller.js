@@ -24,16 +24,27 @@ function renderEditor() {
         <button class="text-align-btn center-align" onclick="onTextAlign('center')">≡</button>
         <button class="text-align-btn right-align" onclick="onTextAlign('right')">&gt;</button>
         
-        <select class="font-face">
-
+        <select name = "font-face" class="font-face" onchange="onChangeFontFace(this)">
+            <option selected>Impact</option>
+            <option>Arial</option>
+            <option>Verdana</option>
+            <option>Helvetica</option>
+            <option>Tahoma</option>
+            <option>Trebuchet MS</option>
+            <option>Times New Roman</option>
+            <option>Garamond</option>
+            <option>Courier New</option>
+            <option>Brush Script MT</option>
         </select>
         <input class="stroke-color" type="color" name="stroke-color" oninput="onSetStrokeColor(this)">
         <input class="fill-color" type="color" name="fill-color" oninput="onSetFillColor(this)">
 
-        <div class="sticker-container"></div>
+        <div class="sticker-container">
+        ${renderStickers()}
+        </div>
 
         <button class="share-btn">Share</button>
-        <a href="#" class="download-btn btn" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download</a>
+        <a href="#" class="download-btn btn" onclick="onDownloadMeme(this, event)" download="my-meme.jpg">Download</a>
     </div>
     `
     elMain.classList.remove('gallery')
@@ -47,6 +58,13 @@ function renderEditor() {
     renderMeme()
     addListeners()
     // }
+}
+
+function renderStickers() {
+    var strHTMLs = getStickers().map(sticker =>
+        `<button class="btn sticker" onclick="onAddSticker('${sticker}')">${sticker}</button>`
+    )
+    return strHTMLs.join('');
 }
 
 function onResizeWindow() {
@@ -83,7 +101,7 @@ function renderMeme(isForDownload = false) {
             syncCtxBtnsAndModel(line, false);
             drawText(line);
         })
-        if (!isForDownload && selectedLine) {
+        if (!isForDownload) {
             syncCtxBtnsAndModel(selectedLine, true);
             drawSelectionRectangle(selectedLine);
         }
@@ -95,14 +113,16 @@ function syncCtxBtnsAndModel(selectedLine, isSyncBtnsOn) {
         document.querySelector('.meme-text').value = (selectedLine) ? selectedLine.txt : 'Please add line to edit';
         document.querySelector('.stroke-color').value = (selectedLine) ? selectedLine.strokeColor : '#000000';
         document.querySelector('.fill-color').value = (selectedLine) ? selectedLine.fillColor : '#ffffff';
+        document.querySelector('select.font-face').value = (selectedLine) ? selectedLine.fontFace : 'Impact';
         document.querySelectorAll(`.text-align-btn`).forEach(btn => {
             if (selectedLine && btn.classList.contains(`${selectedLine.align}-align`)) btn.disabled = true;
             else btn.disabled = false;
         })
     }
+    if (!selectedLine) return;
     gCtx.strokeStyle = selectedLine.strokeColor;
     gCtx.fillStyle = selectedLine.fillColor;
-    gCtx.font = `${selectedLine.size}px Arial`;
+    gCtx.font = `${selectedLine.size}px ${selectedLine.fontFace}, sans-serif`;
     gCtx.lineWidth = selectedLine.size / 10;
     gCtx.textBaseline = 'middle';
     // if (alignment) {
@@ -125,6 +145,7 @@ function drawText(line) {
 }
 
 function drawSelectionRectangle(line) {
+    if (!line) return;
     const lineMetrics = gCtx.measureText(line.txt);
     const rectW = lineMetrics.width;
     const rectH = Math.abs(lineMetrics.actualBoundingBoxAscent) + Math.abs(lineMetrics.actualBoundingBoxDescent)
@@ -180,6 +201,11 @@ function onAddLine() {
     renderMeme()
 }
 
+function onAddSticker(sticker){
+    createNewLine(sticker)
+    renderMeme()
+}
+
 function onRemoveLine() {
     if (!getMeme().lines.length) return;
     removeLine();
@@ -190,6 +216,12 @@ function onTextAlign(alignment) {
     if (!getMeme().lines.length) return;
     setTextAlignment(alignment);
     renderMeme();
+}
+
+function onChangeFontFace(elSelect) {
+    if (!getMeme().lines.length) return;
+    setFontFace(elSelect.value)
+    renderMeme()
 }
 
 
@@ -295,9 +327,17 @@ function getEvPos(ev) {
 
 // Image Upload and Download
 
-function onDownloadMeme(elLink) {
-    var imgContent = gElCanvas.toDataURL('image/jpeg')
-    elLink.href = imgContent
+function onDownloadMeme(elLink, ev) {
+    renderMeme(true);
+    setTimeout(() => {
+        var imgContent = gElCanvas.toDataURL('image/jpeg')
+        elLink.href = imgContent
+        console.log('here');
+    }, 1000)
+}
+
+function download() {
+
 }
 
 function onImgInput(ev) {
@@ -329,7 +369,7 @@ function onImgInput(ev) {
 
 //         document.querySelector('.share-container').innerHTML = `
 //         <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-//            Share   
+//            Share
 //         </a>`
 //     }
 
