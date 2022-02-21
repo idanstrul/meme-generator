@@ -2,10 +2,10 @@
     .main-layout{
         padding: 13px 25px;
     }
-    .editor-controls{
+    /* .editor-controls{
         width: calc(66vw);
         height: calc(7 / 5 * 66vw / 1.2);
-    }
+    } */
 
     .grid-container{
         grid-template-columns: repeat(auto-fit, minmax(90px , 1fr));
@@ -34,7 +34,7 @@
     }
 
     .editor-controls {
-        gap: 10px 5px;
+        /* gap: 10px 5px; */
         width: auto;
         height: auto;
         align-self: stretch;

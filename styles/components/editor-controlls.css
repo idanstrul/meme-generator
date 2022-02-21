@@ -1,6 +1,6 @@
 .editor-controls {
     display: grid;
-    grid-template: repeat(4, 1fr) 2fr 1fr / repeat(5, 1fr);
+    grid-template: repeat(4, 1fr) 2fr 1fr / repeat(5, 2.25rem);
     grid-template-areas: 
     
     "meme-text      meme-text       meme-text   meme-text       meme-text"
@@ -49,7 +49,6 @@
 
 .font-face{
     grid-area: font-face;
-    max-width: 108px;
 }
 
 .stroke-color{
@@ -64,11 +63,31 @@
     grid-area: stickers;
     background-color: white;
     display: grid;
-    overflow: scroll;
+    overflow-x: scroll;
     grid-template: 1fr 1fr / auto;
-    max-width: 180px;
     grid-auto-flow: column;
 }
+
+.sticker-container::-webkit-scrollbar{
+    background: rgba(0,0,0,0);
+    height: 5px;
+  }
+  
+  /* Track */
+  .sticker-container:hover::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  .sticker-container:hover::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  .sticker-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
 .share-btn{
     grid-area: share-btn;
@@ -82,8 +101,8 @@
 
 .editor-controls {
     gap: 6px 13px;
-    width: calc(100vw - 10px);
-    height: calc(7 / 5 *(100vw - 10px) / 1.2);
+    /* width: calc(100vw - 10px);
+    height: calc(7 / 5 *(100vw - 10px) / 1.2); */
     /* width: 100%; */
     /* grid-template: repeat(4, 1.875em) 2.75em 1.875em / repeat(5, 1.875em);
 }
@@ -92,13 +111,4 @@
     width: 30px;
     height: 30px;
     font-size: inherit; */
-}
-
-
-input.stroke-color {
-    width: 30px;
-}
-
-input.fill-color {
-    width: 30px;
 }

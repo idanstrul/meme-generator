@@ -1,0 +1,71 @@
+button, .btn{
+    border: none;
+    background-color: var(--clr3);
+    border-radius: 6px;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+button.btn, label.btn {
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 1.5rem;
+}
+
+button:disabled{
+    opacity: 0.5;
+}
+
+button:disabled:hover{
+    opacity: 0.5;
+}
+
+button:hover, .btn:hover{
+    opacity: 0.7;
+
+}
+
+label.btn {
+    position: relative;
+}
+
+label.btn span{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sticker{
+    padding: 3px;
+}
+
+.main-nav button{
+    color: var(--clr3);
+    background: none;
+    transition: color 0.3s;
+}
+
+.main-nav button:hover{
+    color: var(--clr4);
+    cursor: pointer;
+}
+
+.main-nav li:not(:last-child)::after{
+    content: '|';
+    padding: 0 5px;
+    color: var(--clr3);
+}
+
+a.download-btn.btn {
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    font-family: sans-serif;
+    line-height: 2.8;
+}
+
+.share-btn:hover{
+    cursor: pointer;
+}

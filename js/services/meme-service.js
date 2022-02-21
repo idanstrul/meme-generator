@@ -46,15 +46,27 @@ var gMeme = {
 }
 var gIsEditorOpen = false;
 
-function setEditorOpen() {
-    if (gIsEditorOpen) return
-    gIsEditorOpen = true;
+function setEditorState(state) {
+    switch (state) {
+        case 'open':
+            gIsEditorOpen = true;
+            break;
+        case 'close':
+            gIsEditorOpen = false;
+            break;
+    }
+
 }
 
-function setEditorClosed() {
-    if (!gIsEditorOpen) return
-    gIsEditorOpen = false;
-}
+// function setEditorOpen() {
+//     if (gIsEditorOpen) return
+//     gIsEditorOpen = true;
+// }
+
+// function setEditorClosed() {
+//     if (!gIsEditorOpen) return
+//     gIsEditorOpen = false;
+// }
 
 function checkIfEditorOpen() {
     return gIsEditorOpen
@@ -64,7 +76,7 @@ function getMeme() {
     return gMeme;
 }
 
-function getSelectedLine(){
+function getSelectedLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
 }
 
@@ -96,7 +108,7 @@ function setFontSize(diff) {
     gMeme.lines[gMeme.selectedLineIdx].size += diff;
 }
 
-function setFontFace(fontFace){
+function setFontFace(fontFace) {
     getSelectedLine().fontFace = fontFace;
 }
 
@@ -146,7 +158,7 @@ function removeLine() {
 }
 
 function setTextAlignment(alignment) {
-    const line =  gMeme.lines[gMeme.selectedLineIdx];
+    const line = gMeme.lines[gMeme.selectedLineIdx];
     const canvasWidth = getCanvasSize().w
     var xPos;
     switch (alignment) {
@@ -182,11 +194,11 @@ function moveLine(dx, dy) {
 
 // Image Upload
 
-function setImgFromUpload(imgUrl){
-    var newImg = { 
-        id: gImgs.length + 1, 
+function setImgFromUpload(imgUrl) {
+    var newImg = {
+        id: gImgs.length + 1,
         url: imgUrl,
-        keywords: ['funny', 'cat'] 
+        keywords: ['funny', 'cat']
     }
     gImgs.push(newImg);
     gMeme.selectedImgId = newImg.id;
@@ -195,9 +207,9 @@ function setImgFromUpload(imgUrl){
 
 // Stickers:
 
-const STICKERS = ['❤','💥','🚀','🏴‍☠️','🚽','🍕','🍌','🌹','🍆','🎈','💡','💰','🎩','👒','💋','🕶'];
+const STICKERS = ['❤', '💥', '🚀', '🏴‍☠️', '🚽', '🍕', '🍌', '🌹', '🍆', '🎈', '💡', '💰', '🎩', '👒', '💋', '🕶'];
 
-function getStickers(){
+function getStickers() {
     return STICKERS;
 }
 

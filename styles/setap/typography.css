@@ -1,4 +1,53 @@
 @font-face {
     font-family: Impact;
-    src: url('/assets/fonts/impact.ttf');
+    src: url('/assets/fonts/Impact/impact.ttf');
+}
+
+
+/* FONT AWESOME */
+
+@font-face {
+    font-family: fa-brands;
+    src: url('/assets/fonts/fontawesome-free-6.0.0-web/webfonts/fa-brands-400.ttf');
+}
+
+@font-face {
+    font-family: fa-solid;
+    src: url('/assets/fonts/fontawesome-free-6.0.0-web/webfonts/fa-solid-900.ttf');
+}
+
+.fa-brands{
+    font-family: fa-brands;
+}
+
+.fa-solid{
+    font-family: fa-solid;
+}
+
+.btn.left-align::before{
+    content: '\f036'
+}
+
+.btn.center-align::before{
+    content: '\f037'
+}
+
+.btn.right-align::before{
+    content: '\f038'
+}
+
+.btn.remove-line::before{
+    content: '\f2ed'
+}
+
+.btn.switch-line::before{
+    content: '\f884'
+}
+
+label.stroke-color span::before{
+    content: '\f53f';
+}
+
+label.fill-color span::before{
+    content: '\41';
 }

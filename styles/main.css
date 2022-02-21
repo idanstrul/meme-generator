@@ -1,5 +1,6 @@
 /* SETAP */
 @import url('setap/vars.css');
+@import url('setap/typography.css');
 
 /* BASIC */
 
@@ -14,4 +15,5 @@
 @import url('components/editor.css');
 @import url('components/editor-controlls.css');
 @import url('components/canvas-container.css');
+@import url('components/buttons.css');
 @import url('setap/mq.css');

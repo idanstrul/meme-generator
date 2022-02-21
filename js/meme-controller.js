@@ -3,68 +3,56 @@
 var gElCanvas;
 var gCtx;
 
-function renderEditor() {
-    const elMain = document.querySelector('main');
-    var strHTML = `
-    <div class="canvas-container blank-clr">
-        <canvas height="270"`+ /* width="270" */`>
-
-        </canvas>
-    </div>
-    <div class="editor-controls">
-        <input class="meme-text" type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
-
-        <button class="switch-line" onclick="onSwitchLine()">⇅</button>
-        <button class="add-line" onclick="onAddLine()">+</button>
-        <button class="remove-line" onclick="onRemoveLine()">🗑</button>
-
-        <button class="increase-font" onclick="onSetFontSize(1)">A+</button>
-        <button class="decrease-font" onclick="onSetFontSize(-1)">A-</button>
-        <button class="text-align-btn left-align" onclick="onTextAlign('left')">&lt;</button>
-        <button class="text-align-btn center-align" onclick="onTextAlign('center')">≡</button>
-        <button class="text-align-btn right-align" onclick="onTextAlign('right')">&gt;</button>
-        
-        <select name = "font-face" class="font-face" onchange="onChangeFontFace(this)">
-            <option selected>Impact</option>
-            <option>Arial</option>
-            <option>Verdana</option>
-            <option>Helvetica</option>
-            <option>Tahoma</option>
-            <option>Trebuchet MS</option>
-            <option>Times New Roman</option>
-            <option>Garamond</option>
-            <option>Courier New</option>
-            <option>Brush Script MT</option>
-        </select>
-        <input class="stroke-color" type="color" name="stroke-color" oninput="onSetStrokeColor(this)">
-        <input class="fill-color" type="color" name="fill-color" oninput="onSetFillColor(this)">
-
-        <div class="sticker-container">
-        ${renderStickers()}
-        </div>
-
-        <button class="share-btn">Share</button>
-        <a href="#" class="download-btn btn" onclick="onDownloadMeme(this, event)" download="my-meme.jpg">Download</a>
-    </div>
-    `
-    elMain.classList.remove('gallery')
-    elMain.classList.add('editor', 'main-layout', 'secondary-clr')
-    elMain.innerHTML = strHTML;
+function onInit() {
+    renderImgs()
     // elMain.onload = () => {
     gElCanvas = document.querySelector('canvas');
     gCtx = gElCanvas.getContext('2d');
-    window.addEventListener('resize', onResizeWindow)
-    onResizeWindow();
-    renderMeme()
+    // window.addEventListener('resize', onResizeWindow)
     addListeners()
+    renderStickers()
     // }
 }
 
+function renderImgs() {
+    const elGalleryMain = document.querySelector('.gallery-main')
+
+    let strImgsHTMLs = getImgs().map(img =>
+        `<img src="${img.url}" onclick="onImgSelect(${img.id})">`
+    );
+
+    elGalleryMain.innerHTML = strImgsHTMLs.join('');
+}
+
+function toggleEditor(state) {
+    const elEditor = document.querySelector('.editor')
+    const elGallery = document.querySelector('.gallery')
+    setEditorState(state)
+    switch (state) {
+        case 'open':
+            elEditor.classList.remove('hide')
+            elGallery.classList.add('hide')
+            renderMeme()
+            onResizeWindow();
+            break;
+        case 'close':
+            elGallery.classList.remove('hide')
+            elEditor.classList.add('hide')
+            renderImgs()
+    }
+}
+
+function onImgSelect(imgId) {
+    setImg(imgId)
+    toggleEditor('open')
+}
+
 function renderStickers() {
+    const elStickerContainer = document.querySelector('.sticker-container')
     var strHTMLs = getStickers().map(sticker =>
         `<button class="btn sticker" onclick="onAddSticker('${sticker}')">${sticker}</button>`
     )
-    return strHTMLs.join('');
+    elStickerContainer.innerHTML = strHTMLs.join('');
 }
 
 function onResizeWindow() {
@@ -110,9 +98,13 @@ function renderMeme(isForDownload = false) {
 
 function syncCtxBtnsAndModel(selectedLine, isSyncBtnsOn) {
     if (isSyncBtnsOn) {
+        var elStrokeClr = document.querySelector('input.stroke-color')
+        var elFillClr = document.querySelector('input.fill-color')
+        elStrokeClr.value = (selectedLine) ? selectedLine.strokeColor : '#000000';
+        elFillClr.value = (selectedLine) ? selectedLine.fillColor : '#ffffff';
+        elStrokeClr.parentElement.style.color = elStrokeClr.value;
+        elFillClr.parentElement.style.color = elFillClr.value;
         document.querySelector('.meme-text').value = (selectedLine) ? selectedLine.txt : 'Please add line to edit';
-        document.querySelector('.stroke-color').value = (selectedLine) ? selectedLine.strokeColor : '#000000';
-        document.querySelector('.fill-color').value = (selectedLine) ? selectedLine.fillColor : '#ffffff';
         document.querySelector('select.font-face').value = (selectedLine) ? selectedLine.fontFace : 'Impact';
         document.querySelectorAll(`.text-align-btn`).forEach(btn => {
             if (selectedLine && btn.classList.contains(`${selectedLine.align}-align`)) btn.disabled = true;
@@ -201,7 +193,7 @@ function onAddLine() {
     renderMeme()
 }
 
-function onAddSticker(sticker){
+function onAddSticker(sticker) {
     createNewLine(sticker)
     renderMeme()
 }
@@ -347,8 +339,7 @@ function onImgInput(ev) {
         console.log('onload');
         const imgUrl = event.target.result
         setImgFromUpload(imgUrl)
-        setEditorOpen()
-        renderEditor()
+        toggleEditor('open')
     }
     console.log('after');
     reader.readAsDataURL(ev.target.files[0])

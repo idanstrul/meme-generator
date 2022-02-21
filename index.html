@@ -14,17 +14,85 @@
         <img class="logo" src="assets/LOGO/LOGO.png" alt="Memegen">
         <nav class="main-nav">
             <ul class="clean-list flex-main">
-                <li><button class="gallery-tab" onclick="onOpenGallery()">Gallery</button></li>
+                <li><button class="gallery-tab" onclick="toggleEditor('close')">Gallery</button></li>
                 <li><button class="memes-tab">Memes</button></li>
                 <li><button class="about-tab">About</button></li>
             </ul>
         </nav>
         <button class="burger-menu-btn">≡</button>
     </header>
-    
+
 
     <main class="gallery">
+        <section class="gallery-header main-layout flex-main">
+            <div class="inputs">
+                <input type="search" placeholder="Enter search keyword">
+                <h3> Or upload your own image:<h3>
+                        <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+            </div>
+            <div class="tag-cloud">
+                funny politics crazy
+            </div>
+        </section>
+        <section class="gallery-main grid-container main-layout secondary-clr">
 
+        </section>
+        <section class="monica-geller hide main-layout">
+
+        </section>
+    </main>
+
+    <main class="editor main-layout secondary-clr hide">
+        <div class="canvas-container blank-clr">
+            <canvas height="270" width="270">
+    
+            </canvas>
+        </div>
+        <div class="editor-controls">
+            <input class="meme-text btn" type="text" name="meme-text" placeholder="Type your meme!" oninput="onUpdateText(this)">
+    
+            <button class="switch-line btn fa-solid" onclick="onSwitchLine()"> </button>
+            <button class="add-line btn fa-solid" onclick="onAddLine()">+</button>
+            <button class="remove-line btn fa-solid" onclick="onRemoveLine()"></button>
+    
+            <button class="increase-font btn fa-solid" onclick="onSetFontSize(1)">A+</button>
+            <button class="decrease-font btn fa-solid" onclick="onSetFontSize(-1)">A-</button>
+            <button class="text-align-btn btn fa-solid left-align" onclick="onTextAlign('left')"></button>
+            <button class="text-align-btn btn fa-solid center-align" onclick="onTextAlign('center')"></button>
+            <button class="text-align-btn btn fa-solid right-align" onclick="onTextAlign('right')"></button>
+            
+            <select name = "font-face" class="font-face btn" onchange="onChangeFontFace(this)">
+                <option selected>Impact</option>
+                <option>Arial</option>
+                <option>Verdana</option>
+                <option>Helvetica</option>
+                <option>Tahoma</option>
+                <option>Trebuchet MS</option>
+                <option>Times New Roman</option>
+                <option>Garamond</option>
+                <option>Courier New</option>
+                <option>Brush Script MT</option>
+            </select>
+
+            <label for="stroke-color" class="stroke-color btn fa-solid">
+                <span></span>
+                <input class="stroke-color" type="color" name="stroke-color" oninput="onSetStrokeColor(this)"  style="opacity: 0;">
+            </label>
+
+            <label for="fill-color" class="fill-color btn fa-solid">
+                <span></span>
+                <input class="fill-color" type="color" name="fill-color" oninput="onSetFillColor(this)" style="opacity: 0;">
+            </label>
+            
+            
+    
+            <div class="sticker-container">
+            <!-- ${renderStickers()} -->
+            </div>
+    
+            <button class="share-btn">Share</button>
+            <a href="#" class="download-btn btn" onclick="onDownloadMeme(this, event)" download="my-meme.jpg">Download</a>
+        </div>
     </main>
 
     <footer class="main-footer main-layout main-clr flex-center-column">
