@@ -1,3 +1,5 @@
+<img src="./assets/for-readme/meme-banner.jpg" align="right">
+
 # meme-generator
 > 😎 A small-scale web-app for generating your funniest memes.
 
@@ -13,8 +15,7 @@ This project was carried out as part of the Coding Academy web development cours
 
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
-<!-- If you have screenshots you'd like to share, include them here. -->
+![Example screenshot](./assets/for-readme/screen-shot.png)
 
 
 ## Usage
